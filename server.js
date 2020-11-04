@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const dbJson = require('./Develop/db/db.json')
+const dbJson = require('./db/db.json')
 
 // server looks in its parent folder for a folder called public and serves all the files within
 app.use( express.static('public') )

@@ -4,7 +4,6 @@ const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
 
-
 const dbJson = require('./db/db.json')
 
 const app = express();
@@ -16,16 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 require("./apiroutes")(app);
-// app.use('/home-page', function (req, res) {
-//     res.send('This is a exported route from another file!')
-// })
 
-// app.use('/', function (req, res) {
-//     res.send('Hello World! This is the Root route.')
-// })
-// app.use('*', function (req, res) {
-//     res.send('This is a wild card route.')
-// })
 
 require("./htmlroutes")(app);
 

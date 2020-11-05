@@ -1,7 +1,10 @@
 const fs = require("fs");
-const db = require("./db/db.json")
+// const db = require("./db/db.json")
 
 module.exports = (app) => {
+
+    let db = JSON.parse(fs.readFileSync('db/db.json', 'utf8'));
+    // console.log(db)
 
     // app.use('/some-other-route', function(req, res) {
     //     res.send("Hi there!")
@@ -10,7 +13,10 @@ module.exports = (app) => {
     // 1 (app.get) GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
 
     app.get('/api/notes', function (req, res) {
-        return res.json(db);
+        // return res.json(db);
+        // res.json(db);
+        res.send(db);
+        console.log(db)
     })
     
     // 2 (app.post) POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, 
@@ -19,16 +25,19 @@ module.exports = (app) => {
 
     app.post('/api/notes', function (req, res) {
         let newNote = req.body;
-        let highestId;
+        let highestId = 0;
         if (db.length) {
-            highestId = Math.max(...(db.map(note => note.id)));        
-        } else {
-            highestId = 0;
+            highestId = Math.max(...(db.map(note => note.id)));
+            highestId++        
         }
-        const id = highestId++;
-        newNote.id = highestId++;
+
+        newNote.id = highestId;
         db.push(newNote);
-        res.json(db.slice(-1));
+        // res.json(db.slice(-1));
+        res.json(db);
+
+        fs.writeFileSync( 'db/db.json', JSON.stringify( db ) )
+        res.send( db )
     });
 
     // app.post('/api/notes', function(req, res) {

@@ -25,7 +25,7 @@ module.exports = (app) => {
 
     app.post('/api/notes', function (req, res) {
         let newNote = req.body;
-        let highestId = 0;
+        let highestId = 1;
         if (db.length) {
             highestId = Math.max(...(db.map(note => note.id)));
             highestId++        
